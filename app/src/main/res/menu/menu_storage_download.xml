@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/item_create_pdf"
+        android:title="Gerar PDF"
+        android:icon="@drawable/ic_pdf_24"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/item_shar"
+        android:title="compartilhar"
+        android:icon="@drawable/ic_share_24"
+        app:showAsAction="always" />
+
+</menu>
