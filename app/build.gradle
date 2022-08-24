@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.firebasecursods"
         minSdk 21
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -32,10 +32,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.android.support:support-v4'
 
     //firebase
-    implementation 'com.google.firebase:firebase-bom:30.2.0'
-    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-bom:30.3.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
 
     //pdf
     implementation 'com.itextpdf:itextg:5.5.10'

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:gravity="center"
-    >
+    android:gravity="center" >
 
     <TextView
         android:id="@+id/textView_DialogAlerta_Title"
@@ -31,9 +28,7 @@
         android:padding="10dp"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold"/>
-
-
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_DialogAlerta_OK"
@@ -43,7 +38,6 @@
         android:textColor="@color/cardview_dark_background"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        />
+        style="@style/Widget.AppCompat.Button.Borderless" />
 
 </LinearLayout>

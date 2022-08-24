@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.firebasecursods.storage.StorageDownloadActivity;
+import com.example.firebasecursods.storage.StorageUploadActivity;
 import com.example.firebasecursods.util.Permissao;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,11 +45,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.cardView_Storage_Download:
-                Toast.makeText(this, "cardView_Storage_Download", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "cardView_Storage_Download", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(), StorageDownloadActivity.class);
+                startActivity(intent);
             break;
 
             case R.id.cardView_Storage_Upload:
-                Toast.makeText(this, "cardView_Storage_Upload", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "cardView_Storage_Upload", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getBaseContext(), StorageUploadActivity.class));
             break;
 
             case R.id.cardView_Database_Ler:
@@ -86,6 +92,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
     }
 }

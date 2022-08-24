@@ -9,10 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Permissao {
-
 
     public static boolean permissao(Activity activity, int requestCode, String[] permissoes){
 
