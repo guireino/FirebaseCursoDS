@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseCursoDS">
         <activity
+            android:name=".database_list_empresa.DatabaseListEmpresaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".database.DatabaseGravarAlterarRemoverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".database.DatabaseLerDadosActivity"
+            android:exported="false" />
+        <activity
             android:name=".storage.StorageUploadActivity"
             android:exported="false" />
         <activity

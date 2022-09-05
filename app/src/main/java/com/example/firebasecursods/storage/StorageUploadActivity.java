@@ -3,9 +3,11 @@ package com.example.firebasecursods.storage;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,11 +27,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.firebasecursods.R;
 import com.example.firebasecursods.util.DialogAlerta;
 import com.example.firebasecursods.util.DialogProgress;
 import com.example.firebasecursods.util.Permissao;
+import com.example.firebasecursods.util.Util;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -37,8 +42,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 
 public class StorageUploadActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -79,8 +86,24 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
 
             case R.id.btn_StorageUpload_Enviar:
                 //Toast.makeText(getBaseContext(), "btn_StorageUpload_Enviar", Toast.LENGTH_SHORT).show();
-                upload_Imagem_1();
+                btn_Upload();
             break;
+        }
+    }
+
+    private void btn_Upload(){
+
+        if(Util.statusInternet(getBaseContext())){
+
+            if(imageView.getDrawable() != null){
+                //upload_Imagem_1();
+                upload_Imagem_2();
+            }else{
+                Toast.makeText(getBaseContext(), "Não existe imagem ainda para realizar o upload", Toast.LENGTH_LONG).show();
+            }
+
+        }else{
+            Toast.makeText(getBaseContext(), "Erro de Conexão - verifique se o seu Wifi ou 3G esta funcionando", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -120,6 +143,73 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
         });
     }
 
+    private void upload_Imagem_2(){
+
+        DialogProgress dialogProgress = new DialogProgress();
+        dialogProgress.show(getSupportFragmentManager(), "");
+
+        StorageReference reference = storage.getReference().child("upload").child("imagens");
+        StorageReference nome_Imagem = reference.child("CursoFirebaseUpload" + System.currentTimeMillis() + ".jpg");
+
+        // mudando resolucao da imagem
+        Glide.with(getBaseContext()).asBitmap().load(uri_imagem).apply(new RequestOptions().override(1024, 768))
+                .listener(new RequestListener<Bitmap>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                        Toast.makeText(getBaseContext(), "Sucesso ao transformar imagem", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        resource.compress(Bitmap.CompressFormat.JPEG, 70, bytes);
+
+                        ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes.toByteArray());
+
+                        try {
+                            bytes.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        UploadTask uploadTask = nome_Imagem.putStream(inputStream);
+
+                        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>(){
+
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                return nome_Imagem.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+
+                                if(task.isSuccessful()){
+
+                                    dialogProgress.dismiss();
+
+                                    Uri uri = task.getResult();
+
+                                    String url_imagem = uri.toString();
+
+                                    DialogAlerta alerta = new DialogAlerta("URL IMAGE", url_imagem);
+                                    alerta.show(getSupportFragmentManager(), "3");
+
+                                    Toast.makeText(getBaseContext(), "Sucesso ao realizar Upload", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    dialogProgress.dismiss();
+                                    Toast.makeText(getBaseContext(), "Erro ao realizar Upload", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                        return false;
+                    }
+                }).submit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -140,11 +230,22 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
 
             case R.id.item_camera:
                 //Toast.makeText(getBaseContext(), "item_camera", Toast.LENGTH_SHORT).show();
-                obterImagem_camera();
+                item_camera();
             break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void item_camera() {
+
+        if(ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            DialogAlerta dialogAlerta = new DialogAlerta("Permissao Necessaria",
+                    "Acesse as configurações do aplicativo para poder utilizar a camera no nosso aplicativo");
+            dialogAlerta.show(getSupportFragmentManager(), "1");
+        }else{
+            obterImagem_camera();
+        }
     }
 
     private void obterImagem_gallery(){
@@ -193,7 +294,7 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
 
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                            Toast.makeText(getBaseContext(), "Falha ao selecionar imagem", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Erro ao carregar imagem", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 
@@ -213,11 +314,13 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
 
                 if (uri_imagem != null){ // verificar resposta da camera
 
+
+                    // metado glide e para tratavendo imagem para dimenuir tamanho e tambem para nao tem estroro de memoria
                     Glide.with(getBaseContext()).asBitmap().load(uri_imagem).listener(new RequestListener<Bitmap>() {
 
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                            Toast.makeText(getBaseContext(), "Falha ao selecionar imagem", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Erro ao carregar imagem", Toast.LENGTH_SHORT).show();
                             return false;
                         }
 

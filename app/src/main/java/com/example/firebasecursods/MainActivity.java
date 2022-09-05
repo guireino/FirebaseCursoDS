@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.firebasecursods.database.DatabaseGravarAlterarRemoverActivity;
+import com.example.firebasecursods.database.DatabaseLerDadosActivity;
 import com.example.firebasecursods.storage.StorageDownloadActivity;
 import com.example.firebasecursods.storage.StorageUploadActivity;
 import com.example.firebasecursods.util.Permissao;
@@ -56,11 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
 
             case R.id.cardView_Database_Ler:
-                Toast.makeText(this, "cardView_Database_Ler", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "cardView_Database_Ler", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getBaseContext(), DatabaseLerDadosActivity.class));
             break;
 
             case R.id.cardView_Database_Gravar:
-                Toast.makeText(this, "cardView_Database_Gravar", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "cardView_Database_Gravar", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getBaseContext(), DatabaseGravarAlterarRemoverActivity.class));
             break;
 
             case R.id.cardView_Empresas:
