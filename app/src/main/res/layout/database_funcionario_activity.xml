@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".database_list_funcionario.DatabaseFuncionarioActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <ImageView android:id="@+id/imageView_database_funcionario"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:paddingTop="15dp" />
+
+        <ProgressBar android:id="@+id/progressbar_database_funcionario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <EditText android:id="@+id/edTxt_database_funcionario_Nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText android:id="@+id/edTxt_database_funcionario_Idade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button android:id="@+id/btn_database_funcionario_alterar"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:text="Alterar"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/design_default_color_primary"
+            android:textAllCaps="false"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+        <Button android:id="@+id/btn_database_funcionario_remover"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:text="Remover"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/design_default_color_primary"
+            android:textAllCaps="false"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+    </LinearLayout>
+
+</LinearLayout>

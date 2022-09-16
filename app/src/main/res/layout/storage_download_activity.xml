@@ -6,22 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".storage.StorageDownloadActivity">
 
-    <ImageView
-        android:id="@+id/imageView_Storage"
+    <ImageView android:id="@+id/imageView_Storage"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
-    <ProgressBar
-        android:id="@+id/progressbar_storage_download"
+    <ProgressBar android:id="@+id/progressbar_storage_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
-    <Button
-        android:id="@+id/btn_StorageDownload"
+    <Button android:id="@+id/btn_StorageDownload"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@+id/imageView_Storage"
@@ -29,8 +26,7 @@
         android:text="Dowload"
         android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/btn_StorageRemover"
+    <Button android:id="@+id/btn_StorageRemover"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@+id/btn_StorageDownload"

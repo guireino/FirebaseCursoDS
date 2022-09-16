@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".database_list_funcionario.DatabaseListFuncionarioActivity">
+
+    <androidx.cardview.widget.CardView android:id="@+id/cardView_Funcionario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true" >
+
+        <LinearLayout android:id="@+id/linearlayout_Funcionario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:padding="10dp">
+
+        <ImageView android:id="@+id/imageView_Funcionario_limparCampos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_limpar_campos_24dp"
+            android:layout_gravity="end" />
+
+        <EditText android:id="@+id/eTxt_funcionario_Nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="@string/nome"
+            android:textSize="17sp" />
+
+        <EditText android:id="@+id/eTxt_funcionario_idade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="@string/idade"
+            android:inputType="number"
+            android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button android:id="@+id/btn_Funcionario_Salvar"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/salvar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/design_default_color_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    style="@android:style/Widget.Holo.Button.Borderless" />
+
+                <ImageView android:id="@+id/imageView_Funcionario_Imagem"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_galeria_24" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView_Funcionario_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

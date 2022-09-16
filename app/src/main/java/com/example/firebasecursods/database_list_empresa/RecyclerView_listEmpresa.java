@@ -33,7 +33,6 @@ public class RecyclerView_listEmpresa extends RecyclerView.Adapter<RecyclerView_
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_empresa_recycleview, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
-
         view.setTag(holder);
 
         return holder;
@@ -56,7 +55,7 @@ public class RecyclerView_listEmpresa extends RecyclerView.Adapter<RecyclerView_
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() {  // metado vai retonar tamanho list
         return empresas.size();
     }
 
@@ -74,7 +73,6 @@ public class RecyclerView_listEmpresa extends RecyclerView.Adapter<RecyclerView_
     }
 
     public interface ClickEmpresa{
-
         void clickEmpresa(Empresa empresa);
     }
 }

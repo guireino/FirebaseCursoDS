@@ -6,17 +6,23 @@
         <entry key="app/src/main/res/drawable/ic_camera_24.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/drawable/ic_galeria_24.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_geleria_24.xml" value="0.35208333333333336" />
+        <entry key="app/src/main/res/drawable/ic_layout_hide_24.xml" value="0.3055555555555556" />
+        <entry key="app/src/main/res/drawable/ic_layout_show_24.xml" value="0.3055555555555556" />
         <entry key="app/src/main/res/drawable/ic_pdf_24.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/drawable/ic_share_24.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/database_funcionario_activity.xml" value="0.3088768115942029" />
         <entry key="app/src/main/res/layout/database_gravar_alterar_remover_activity.xml" value="0.25" />
         <entry key="app/src/main/res/layout/database_ler_dados_activity.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/database_list_empresa_activity.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/layout/database_list_funcionario_activity.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/database_list_funcionario_recyclerview.xml" value="0.32065217391304346" />
         <entry key="app/src/main/res/layout/dialog_alerta.xml" value="0.3179347826086957" />
         <entry key="app/src/main/res/layout/dialog_progress.xml" value="0.3179347826086957" />
         <entry key="app/src/main/res/layout/list_empresa_recycleview.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/storage_download_activity.xml" value="0.3138586956521739" />
         <entry key="app/src/main/res/layout/storage_upload_activity.xml" value="0.29891304347826086" />
+        <entry key="app/src/main/res/menu/menu_database_list_funcionario.xml" value="0.3359375" />
         <entry key="app/src/main/res/menu/menu_storage_download.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_storage_upload.xml" value="0.22" />
         <entry key="app/src/main/res/xml/provider.xml" value="0.2046875" />

@@ -107,6 +107,8 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    // ======================================= SALVAR DE DADOS =======================================
+
     private void upload_Imagem_1() {
 
         DialogProgress dialogProgress = new DialogProgress();
@@ -313,7 +315,6 @@ public class StorageUploadActivity extends AppCompatActivity implements View.OnC
             else if(requestCode == 1){ // resposta da camera
 
                 if (uri_imagem != null){ // verificar resposta da camera
-
 
                     // metado glide e para tratavendo imagem para dimenuir tamanho e tambem para nao tem estroro de memoria
                     Glide.with(getBaseContext()).asBitmap().load(uri_imagem).listener(new RequestListener<Bitmap>() {

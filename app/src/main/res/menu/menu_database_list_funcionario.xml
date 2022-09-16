@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+        <item android:id="@+id/item_show_layout"
+              android:icon="@drawable/ic_layout_show_24"
+              android:title="show"
+              app:showAsAction="always" />
+
+        <item android:id="@+id/item_hide_layout"
+            android:icon="@drawable/ic_layout_hide_24"
+              android:title="hide"
+              app:showAsAction="always" />
+
+        <item android:id="@+id/item_create_funcionario"
+              android:icon="@drawable/ic_pdf_24"
+              android:title="create"
+              app:showAsAction="always" />
+
+</menu>

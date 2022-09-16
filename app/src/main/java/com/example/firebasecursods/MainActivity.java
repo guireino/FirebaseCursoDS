@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.firebasecursods.database.DatabaseGravarAlterarRemoverActivity;
 import com.example.firebasecursods.database.DatabaseLerDadosActivity;
+import com.example.firebasecursods.database_list_empresa.DatabaseListEmpresaActivity;
 import com.example.firebasecursods.storage.StorageDownloadActivity;
 import com.example.firebasecursods.storage.StorageUploadActivity;
 import com.example.firebasecursods.util.Permissao;
@@ -68,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
 
             case R.id.cardView_Empresas:
-                Toast.makeText(this, "cardView_Empresas", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "cardView_Empresas", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getBaseContext(), DatabaseListEmpresaActivity.class));
             break;
         }
     }
