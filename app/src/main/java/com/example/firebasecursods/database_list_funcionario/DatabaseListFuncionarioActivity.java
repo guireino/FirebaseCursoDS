@@ -68,7 +68,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseListFuncionarioActivity extends AppCompatActivity implements View.OnClickListener, RecyclerView_ListFuncionario.ClickFuncionario {
+public class DatabaseListFuncionarioActivity extends AppCompatActivity implements View.OnClickListener,
+        RecyclerView_ListFuncionario.ClickFuncionario {
 
     private LinearLayout linearLayout;
     private ImageView imageView_clearfields, imageView_galeria;
@@ -119,6 +120,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
 
+        // essa variavel pega nome da pasta onde ele estao armazenada dados
         empresa = getIntent().getParcelableExtra("empresa");
 
         startRecyclerView();
@@ -134,10 +136,12 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
         //funcionarios.add(funcionario0);
         //funcionarios.add(funcionario1);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));  // iniciando lista com os funcionarios
         rView_list = new RecyclerView_ListFuncionario(getBaseContext(), funcionarios, this);
 
         recyclerView.setAdapter(rView_list);
+
+        //System.out.println("id getId: " + empresa.getId());
     }
 
     @Override
@@ -174,7 +178,8 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
             if (imagem_Selected){
                 salvarDadosStorage(nome, idade);
             }else{
-                DialogAlerta alerta = new DialogAlerta("Imagem - Erro", "E obrigatorio escolher uma imagem para salvar os dados do funcionario");
+                DialogAlerta alerta = new DialogAlerta("Imagem - Erro",
+                        "E obrigatorio escolher uma imagem para salvar os dados do funcionario");
                 alerta.show(getSupportFragmentManager(), "1");
             }
         }
@@ -202,9 +207,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
             case R.id.item_create_funcionario:
 
                 itemCriarPdf();
-
                 //Toast.makeText(getBaseContext(), "case: item_create_funcionario", Toast.LENGTH_LONG).show();
-
 
             return true;
         }
@@ -219,7 +222,6 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
             new GerarPDF().execute();
 
         }else{
-
             DialogAlerta alerta = new DialogAlerta("Erro ao gerar PDF", "Não existem funcionarios para gerar o relatorio PDF");
             alerta.show(getSupportFragmentManager(), "1");
         }
@@ -228,7 +230,18 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
     @Override
     public void click_Funcionario(Funcionario funcionario) {
         //Toast.makeText(getBaseContext(), "Nome: " + funcionario.getNome() + "\n\nIdade: " + funcionario.getIdade(), Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getBaseContext(), DatabaseListFuncionarioActivity.class);
+
+        funcionario.setId(empresa.getId());
+
+        System.out.println("funcionario: " + funcionario);
+        System.out.println("funcionario.setId(empresa.getId()): " + empresa.getId());
+        System.out.println("funcionario.getId_empresa(): " + funcionario.getId_empresa());  // null
+
+        // iniciando a tela DatabaseFuncionarioActivity
+        Intent intent = new Intent(getBaseContext(), DatabaseFuncionarioActivity.class);
+        intent.putExtra("Funcionarios", funcionario);
+
+        startActivity(intent);
     }
 
     private void obterImagem_gallery(){
@@ -365,6 +378,8 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
 
         Funcionario funcionario = new Funcionario(nome, idade, urlImagem);
 
+        System.out.println("empresa.getId() " + empresa.getId());
+
         DatabaseReference databaseReference = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios");
 
         databaseReference.push().setValue(funcionario).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -466,6 +481,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
         //reference = database.getReference().child("Funcionarios");
 
         if (childEventListener == null){
+
             childEventListener = new ChildEventListener() {
 
                 @Override
@@ -480,6 +496,9 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
                     funcionario.setId(key); // pegando id da pasta
 
                     funcionarios.add(funcionario);
+
+                    System.out.println("snapshot.getValue(Funcionario.class " + snapshot.getValue(Funcionario.class));
+                    System.out.println("funcionarios.add " + funcionarios.add(funcionario));
 
                     rView_list.notifyDataSetChanged();
                 }

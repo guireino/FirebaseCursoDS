@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Funcionario implements Parcelable {
 
-    private String  id, nome, urlImagem;
+    private String  id, nome, urlImagem, id_empresa;
     private int idade;
 
     public Funcionario(){
@@ -25,20 +25,20 @@ public class Funcionario implements Parcelable {
         this.urlImagem = urlImagem;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getUrlImagem() {
@@ -49,6 +49,14 @@ public class Funcionario implements Parcelable {
         this.urlImagem = urlImagem;
     }
 
+    public String getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(String id_empresa) {
+        this.id_empresa = id_empresa;
+    }
+
     public int getIdade() {
         return idade;
     }
@@ -57,6 +65,7 @@ public class Funcionario implements Parcelable {
         this.idade = idade;
     }
 
+    // gerando para implements Parcelable
 
     @Override
     public int describeContents() {
@@ -68,6 +77,7 @@ public class Funcionario implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.nome);
         dest.writeString(this.urlImagem);
+        dest.writeString(this.id_empresa);
         dest.writeInt(this.idade);
     }
 
@@ -75,6 +85,7 @@ public class Funcionario implements Parcelable {
         this.id = source.readString();
         this.nome = source.readString();
         this.urlImagem = source.readString();
+        this.id_empresa = source.readString();
         this.idade = source.readInt();
     }
 
@@ -82,10 +93,11 @@ public class Funcionario implements Parcelable {
         this.id = in.readString();
         this.nome = in.readString();
         this.urlImagem = in.readString();
+        this.id_empresa = in.readString();
         this.idade = in.readInt();
     }
 
-    public static final Parcelable.Creator<Funcionario> CREATOR = new Parcelable.Creator<Funcionario>() {
+    public static final Creator<Funcionario> CREATOR = new Creator<Funcionario>() {
         @Override
         public Funcionario createFromParcel(Parcel source) {
             return new Funcionario(source);

@@ -38,8 +38,6 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
 
     private DatabaseReference reference;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +58,7 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
         //empresas.add(empresa0);
         //empresas.add(empresa1);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // iniciando list das empresas
         recyclerView_listEmpresa = new RecyclerView_listEmpresa(getBaseContext(), empresas, this);
         recyclerView.setAdapter(recyclerView_listEmpresa);
     }
@@ -70,6 +68,8 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
 
         Intent intent = new Intent(getBaseContext(), DatabaseListFuncionarioActivity.class);
         intent.putExtra("empresa", empresa);
+
+        //System.out.println("clickEmpresa: " + "Nome: " + empresa.getNome() + "\n\nPasta: " + empresa.getId());
 
         startActivity(intent);
         //Toast.makeText(getBaseContext(), "Nome: " + empresa.getNome() + "\n\nPasta: " + empresa.getId(), Toast.LENGTH_LONG).show();
@@ -98,6 +98,9 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
                     empresas.add(empresa);
 
                     recyclerView_listEmpresa.notifyDataSetChanged();
+
+                    // keys 0 = 0
+                    //empresas 0 = coca cola
                 }
 
                 @Override

@@ -54,7 +54,6 @@ public class RecyclerView_ListFuncionario extends RecyclerView.Adapter<RecyclerV
         holder.progressBar.setVisibility(View.VISIBLE);
 
         Picasso.with(context).load(funcionario.getUrlImagem()).into(holder.imageView, new com.squareup.picasso.Callback(){
-
             @Override
             public void onSuccess() {
                 holder.progressBar.setVisibility(View.GONE);
@@ -70,6 +69,7 @@ public class RecyclerView_ListFuncionario extends RecyclerView.Adapter<RecyclerV
             @Override
             public void onClick(View view) {
                 clickFuncionario.click_Funcionario(funcionario);
+                System.out.println("click_Funcionario(funcionario): " + funcionario);
             }
         });
     }

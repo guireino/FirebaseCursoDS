@@ -43,7 +43,11 @@ public class RecyclerView_listEmpresa extends RecyclerView.Adapter<RecyclerView_
 
         final Empresa empresa = empresas.get(position);
 
+        System.out.println("empresas.get(position) " + empresas.get(position));
+
         holder.textViewNome.setText(empresa.getNome());
+
+        System.out.println("empresa.getNome() " + empresa.getNome());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 

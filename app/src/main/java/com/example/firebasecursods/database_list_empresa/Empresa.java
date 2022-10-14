@@ -32,6 +32,8 @@ public class Empresa implements Parcelable {
         this.nome = nome;
     }
 
+    // gerando para implements Parcelable
+
     @Override
     public int describeContents() {
         return 0;
