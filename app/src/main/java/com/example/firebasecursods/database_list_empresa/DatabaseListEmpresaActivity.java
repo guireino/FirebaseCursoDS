@@ -69,7 +69,7 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
         Intent intent = new Intent(getBaseContext(), DatabaseListFuncionarioActivity.class);
         intent.putExtra("empresa", empresa);
 
-        //System.out.println("clickEmpresa: " + "Nome: " + empresa.getNome() + "\n\nPasta: " + empresa.getId());
+        System.out.println("clickEmpresa: " + "Nome: " + empresa.getNome() + "\n\nPasta: " + empresa.getId());
 
         startActivity(intent);
         //Toast.makeText(getBaseContext(), "Nome: " + empresa.getNome() + "\n\nPasta: " + empresa.getId(), Toast.LENGTH_LONG).show();

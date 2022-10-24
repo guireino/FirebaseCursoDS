@@ -20,7 +20,8 @@ import com.example.firebasecursods.util.Permissao;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private CardView cardView_Storage_Download, cardView_Storage_Upload, cardView_Database_Ler, cardView_Database_Gravar, cardView_Empresa;
+    private CardView cardView_Storage_Download, cardView_Storage_Upload, cardView_Database_Ler,
+            cardView_Database_Gravar, cardView_Empresa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

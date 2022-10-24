@@ -231,7 +231,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
     public void click_Funcionario(Funcionario funcionario) {
         //Toast.makeText(getBaseContext(), "Nome: " + funcionario.getNome() + "\n\nIdade: " + funcionario.getIdade(), Toast.LENGTH_LONG).show();
 
-        funcionario.setId(empresa.getId());
+        funcionario.setId_empresa(empresa.getId());
 
         System.out.println("funcionario: " + funcionario);
         System.out.println("funcionario.setId(empresa.getId()): " + empresa.getId());
@@ -299,7 +299,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
 
     // ======================================= SALVAR DE DADOS =======================================
 
-    private void salvarDadosStorage(String nome, int idade){
+    private void salvarDadosStorage(final String nome, final int idade){
 
         progress = new DialogProgress();
         progress.show(getSupportFragmentManager(), "2");
