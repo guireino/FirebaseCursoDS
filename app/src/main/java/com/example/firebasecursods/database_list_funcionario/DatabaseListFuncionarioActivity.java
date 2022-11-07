@@ -45,6 +45,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -95,7 +96,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
     private Empresa empresa;
 
     private DialogProgress progress;
-    private boolean imagem_Selected = false;
+    private boolean imagem_Selected = false, firebaseOffline = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,26 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
         // essa variavel pega nome da pasta onde ele estao armazenada dados
         empresa = getIntent().getParcelableExtra("empresa");
 
+        ativarFirebaseOffline();
         startRecyclerView();
+    }
+
+    private void ativarFirebaseOffline(){
+
+        try {
+
+            if (!firebaseOffline){ // verificando se firebase esta false
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+                firebaseOffline = true;
+
+            }else{ // firebase ja estiver funcionando offline
+
+            }
+
+        }catch (Exception e){ // erro
+
+        }
     }
 
     private void startRecyclerView() {
@@ -476,8 +496,24 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
 
     private void ouvinte(){
 
+        // buscando no banco de dados do firebase pelo nome
+        //Query busca1 = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios").orderByChild("nome").equalTo("Jose Fabio");
+
+        // buscando no banco de dados do firebase pelo nome letra
+        //Query busca1 = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios").orderByChild("nome").startAt("J");
+
+        // buscando no banco de dados do firebase pelo idade
+        //Query busca1 = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios").orderByChild("idade").startAt(60);
+
+        // buscando no banco de dados do firebase pelo idade e ultimo idade
+        //Query busca1 = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios").orderByChild("idade").startAt(20).endAt(60);
+
+        // buscando no banco de dados do firebase pelo idade abaixou da idade
+        //Query busca1 = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios").orderByChild("idade").endAt(30);
+
         // buscando no banco de dados do firebase a pastas
         reference = database.getReference().child("BD").child("BD").child("Empresas").child(empresa.getId()).child("Funcionarios");
+
         //reference = database.getReference().child("Funcionarios");
 
         if (childEventListener == null){
@@ -543,6 +579,7 @@ public class DatabaseListFuncionarioActivity extends AppCompatActivity implement
                 }
             };
 
+            //busca1.addChildEventListener(childEventListener);
             reference.addChildEventListener(childEventListener);
         }
     }

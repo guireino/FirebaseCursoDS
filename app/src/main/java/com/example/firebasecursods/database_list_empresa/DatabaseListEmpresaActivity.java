@@ -8,22 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.firebasecursods.R;
 import com.example.firebasecursods.database.Gerente;
 import com.example.firebasecursods.database_list_funcionario.DatabaseListFuncionarioActivity;
+import com.example.firebasecursods.util.Util;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseListEmpresaActivity extends AppCompatActivity implements RecyclerView_listEmpresa.ClickEmpresa{
+public class DatabaseListEmpresaActivity extends AppCompatActivity implements RecyclerView_listEmpresa.ClickEmpresa, Runnable{
 
     private RecyclerView recyclerView;
     private FirebaseDatabase database;
@@ -38,6 +41,11 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
 
     private DatabaseReference reference;
 
+    private Handler handler;
+    private Thread thread;
+
+    private boolean firebaseOffline = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +55,83 @@ public class DatabaseListEmpresaActivity extends AppCompatActivity implements Re
 
         database = FirebaseDatabase.getInstance();
 
+        //conexaoFirebaseBD();
+
+        handler = new Handler();
+
+        thread = new Thread(this);
+        thread.start();
+
+        ativarFirebaseOffline();
         startingRecyclerView();
+    }
+
+    private void ativarFirebaseOffline(){
+
+        try {
+
+            if (!firebaseOffline){ // verificando se firebase esta false
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+                firebaseOffline = true;
+
+            }else{ // firebase ja estiver funcionando offline
+
+            }
+
+        }catch (Exception e){ // erro
+
+        }
+    }
+
+    @Override
+    public void run() {
+
+        try {
+
+            Thread.sleep(10000);  // espera um 10 seconds
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    conexaoFirebaseBD();
+                }
+            });
+
+        }catch (InterruptedException e){
+
+        }
+
+    }
+
+    private void conexaoFirebaseBD(){
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(".info/connected");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                boolean conexao = snapshot.getValue(Boolean.class);
+
+                if (conexao){
+                    Toast.makeText(getBaseContext(), "Temos conexao com o BD ", Toast.LENGTH_LONG).show();
+                }else{
+
+                    if(Util.statusInternet(getBaseContext())){
+                        Toast.makeText(getBaseContext(), "Bloqueio ao nosso BD ", Toast.LENGTH_LONG).show();
+                    }else{
+                        //Toast.makeText(getBaseContext(), "sem conexao com a internet ", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void startingRecyclerView() {
